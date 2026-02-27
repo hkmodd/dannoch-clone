@@ -1,8 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { quizQuestions, QUIZ_CATEGORIES } from '../data/quiz';
-import { Heart, Zap, Trophy, RotateCcw, ArrowRight, CheckCircle2, XCircle, Star, Brain } from 'lucide-react';
+import { Heart, Zap, Trophy, RotateCcw, ArrowRight, CheckCircle2, XCircle, Star, Brain, Pause, Play } from 'lucide-react';
+
+const QUIZ_SESSION_KEY = 'danno_quiz_state';
+const QUESTIONS_PER_SESSION = 20;
 
 type Phase = 'intro' | 'playing' | 'result';
 
@@ -17,7 +20,7 @@ function shuffleArray<T>(arr: T[]): T[] {
 
 export function Quiz() {
     const [phase, setPhase] = useState<Phase>('intro');
-    const [questions, setQuestions] = useState(quizQuestions);
+    const [questions, setQuestions] = useState(quizQuestions.slice(0, QUESTIONS_PER_SESSION));
     const [current, setCurrent] = useState(0);
     const [selected, setSelected] = useState<number | null>(null);
     const [lives, setLives] = useState(3);
@@ -26,9 +29,30 @@ export function Quiz() {
     const [score, setScore] = useState(0);
     const [answers, setAnswers] = useState<Array<{ qId: number; correct: boolean; category: string }>>([]);
     const [showExplanation, setShowExplanation] = useState(false);
+    const [hasSavedState, setHasSavedState] = useState(false);
+
+    // Check for saved state on mount
+    useEffect(() => {
+        try {
+            const saved = sessionStorage.getItem(QUIZ_SESSION_KEY);
+            if (saved) setHasSavedState(true);
+        } catch { /* ignore */ }
+    }, []);
+
+    // Save state after each answer
+    useEffect(() => {
+        if (phase === 'playing' && answers.length > 0) {
+            try {
+                sessionStorage.setItem(QUIZ_SESSION_KEY, JSON.stringify({
+                    questions: questions.map(q => q.id),
+                    current, lives, streak, bestStreak, score, answers, phase
+                }));
+            } catch { /* ignore */ }
+        }
+    }, [phase, current, lives, streak, bestStreak, score, answers, questions]);
 
     const startQuiz = useCallback(() => {
-        const shuffled = shuffleArray(quizQuestions);
+        const shuffled = shuffleArray(quizQuestions).slice(0, QUESTIONS_PER_SESSION);
         setQuestions(shuffled);
         setCurrent(0);
         setSelected(null);
@@ -39,7 +63,27 @@ export function Quiz() {
         setAnswers([]);
         setShowExplanation(false);
         setPhase('playing');
+        sessionStorage.removeItem(QUIZ_SESSION_KEY);
     }, []);
+
+    const resumeQuiz = useCallback(() => {
+        try {
+            const saved = JSON.parse(sessionStorage.getItem(QUIZ_SESSION_KEY) || '');
+            const qMap = new Map(quizQuestions.map(q => [q.id, q]));
+            const restoredQs = (saved.questions as number[]).map(id => qMap.get(id)).filter(Boolean);
+            if (restoredQs.length === 0) { startQuiz(); return; }
+            setQuestions(restoredQs as typeof quizQuestions);
+            setCurrent(saved.current);
+            setLives(saved.lives);
+            setStreak(saved.streak);
+            setBestStreak(saved.bestStreak);
+            setScore(saved.score);
+            setAnswers(saved.answers);
+            setSelected(null);
+            setShowExplanation(false);
+            setPhase('playing');
+        } catch { startQuiz(); }
+    }, [startQuiz]);
 
     const q = questions[current];
 
@@ -122,8 +166,8 @@ export function Quiz() {
                             Quanto ne sai?
                         </h1>
                         <p className="text-lg text-white/60 max-w-lg">
-                            25 domande su riduzione del danno, farmacologia, interazioni pericolose, aspetti legali e emergenze.
-                            Metti alla prova le tue conoscenze!
+                            {QUESTIONS_PER_SESSION} domande casuali da un database di {quizQuestions.length}+ su riduzione del danno, farmacologia, interazioni pericolose, aspetti legali e emergenze.
+                            Ogni partita è diversa!
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-3 mt-4">
@@ -140,12 +184,22 @@ export function Quiz() {
                             <span className="flex items-center gap-1.5"><Star className="w-4 h-4 text-violet-400" /> 3 livelli</span>
                         </div>
 
-                        <button
-                            onClick={startQuiz}
-                            className="mt-8 px-12 py-4 bg-white text-black font-black text-xl uppercase tracking-tight rounded-2xl hover:bg-white/90 hover:scale-105 transition-all"
-                        >
-                            Inizia il Quiz →
-                        </button>
+                        <div className="flex flex-col items-center gap-3 mt-8">
+                            <button
+                                onClick={startQuiz}
+                                className="px-12 py-4 bg-white text-black font-black text-xl uppercase tracking-tight rounded-2xl hover:bg-white/90 hover:scale-105 transition-all"
+                            >
+                                Nuova Partita →
+                            </button>
+                            {hasSavedState && (
+                                <button
+                                    onClick={resumeQuiz}
+                                    className="px-8 py-3 border border-white/20 text-white font-bold uppercase tracking-tight rounded-xl hover:bg-white/10 transition-all flex items-center gap-2"
+                                >
+                                    <Play className="w-4 h-4" /> Riprendi Quiz
+                                </button>
+                            )}
+                        </div>
                     </motion.div>
                 )}
 

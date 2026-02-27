@@ -97,17 +97,17 @@ export function Home() {
         <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tighter mb-4 md:mb-6 mix-blend-difference">Strumenti Interattivi</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {[
-            { title: 'Quiz', path: '/quiz', emoji: '🧠', desc: 'Testa le tue conoscenze', gradient: 'from-violet-500/20 to-purple-500/20' },
-            { title: 'Comparatore', path: '/comparatore', emoji: '⚖️', desc: 'Confronta sostanze', gradient: 'from-cyan-500/20 to-blue-500/20' },
-            { title: 'Mix Checker', path: '/interazioni', emoji: '⚡', desc: 'Controlla le interazioni', gradient: 'from-red-500/20 to-orange-500/20' },
-            { title: 'Molecole 3D', path: '/molecole', emoji: '🔬', desc: 'Esplora le strutture', gradient: 'from-emerald-500/20 to-teal-500/20' },
+            { title: 'Quiz', path: '/quiz', emoji: '🧠', desc: 'Testa le tue conoscenze' },
+            { title: 'Comparatore', path: '/comparatore', emoji: '⚖️', desc: 'Confronta sostanze' },
+            { title: 'Mix Checker', path: '/interazioni', emoji: '⚡', desc: 'Controlla le interazioni' },
+            { title: 'Molecole 3D', path: '/molecole', emoji: '🔬', desc: 'Esplora le strutture' },
           ].map((tool, i) => (
             <Link key={tool.title} to={tool.path}>
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + (i * 0.04) }}
-                className={`group border border-white/10 bg-gradient-to-br ${tool.gradient} backdrop-blur-md p-4 md:p-5 h-28 md:h-32 flex flex-col justify-between hover:border-white/30 hover:scale-[1.02] transition-all rounded-xl md:rounded-lg`}
+                className="group border border-white/10 bg-white/[0.03] backdrop-blur-md p-4 md:p-5 h-28 md:h-32 flex flex-col justify-between hover:bg-white/[0.08] hover:border-white/20 transition-all rounded-xl md:rounded-lg"
               >
                 <span className="text-2xl md:text-3xl">{tool.emoji}</span>
                 <div>

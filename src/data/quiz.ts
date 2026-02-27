@@ -4,9 +4,9 @@ export interface QuizQuestion {
     difficulty: 1 | 2 | 3;
     question: string;
     options: string[];
-    correct: number; // index
+    correct: number;
     explanation: string;
-    link?: string; // optional link to relevant page
+    link?: string;
 }
 
 export const QUIZ_CATEGORIES: Record<string, { label: string; color: string; emoji: string }> = {
@@ -18,382 +18,93 @@ export const QUIZ_CATEGORIES: Record<string, { label: string; color: string; emo
 };
 
 export const quizQuestions: QuizQuestion[] = [
-    // === RIDUZIONE DEL DANNO ===
-    {
-        id: 1,
-        category: 'rdd',
-        difficulty: 1,
-        question: 'Qual è la regola fondamentale della riduzione del danno?',
-        options: [
-            'Non consumare mai sostanze',
-            'Informarsi prima di consumare e ridurre i rischi',
-            'Consumare solo sostanze legali',
-            'Affidarsi al parere degli amici'
-        ],
-        correct: 1,
-        explanation: 'La riduzione del danno non promuove né condanna il consumo: mira a fornire informazioni oggettive per chi sceglie di consumare, aiutandolo a ridurre i rischi per la salute.',
-        link: '/rischi'
-    },
-    {
-        id: 2,
-        category: 'rdd',
-        difficulty: 1,
-        question: 'Cosa significa "Set & Setting"?',
-        options: [
-            'Il dosaggio e la modalità di assunzione',
-            'Lo stato d\'animo (set) e l\'ambiente circostante (setting)',
-            'La composizione chimica della sostanza',
-            'L\'insieme di regole legali'
-        ],
-        correct: 1,
-        explanation: '"Set" è il tuo stato mentale, fisico ed emotivo. "Setting" è l\'ambiente e le persone con cui ti trovi. Entrambi influenzano enormemente l\'esperienza e i rischi.',
-        link: '/rischi/drug-set-setting'
-    },
-    {
-        id: 3,
-        category: 'rdd',
-        difficulty: 2,
-        question: 'Perché è importante fare il Drug Checking?',
-        options: [
-            'Per sapere se la sostanza è legale',
-            'Per conoscere la composizione e il dosaggio reale della sostanza',
-            'Per ottenere un certificato di qualità',
-            'Per registrare il proprio consumo'
-        ],
-        correct: 1,
-        explanation: 'Il Drug Checking analizza la composizione reale delle sostanze, identificando adulteranti pericolosi e dosaggi inattesi. È uno strumento fondamentale di prevenzione.',
-        link: '/drugchecking'
-    },
-    {
-        id: 4,
-        category: 'rdd',
-        difficulty: 2,
-        question: 'Dopo aver consumato MDMA, quanto tempo bisognerebbe aspettare prima di riconsumarne?',
-        options: [
-            '1-2 giorni',
-            '1 settimana',
-            '3-4 settimane minimo',
-            '6 mesi'
-        ],
-        correct: 2,
-        explanation: 'L\'MDMA esaurisce le riserve di serotonina. Il corpo impiega almeno 3-4 settimane per rigenerarle. Consumare troppo frequentemente aumenta i rischi di neurotossicità e depressione.',
-        link: '/sostanze/ecstasy-mdma'
-    },
-    // === FARMACOLOGIA ===
-    {
-        id: 5,
-        category: 'farmacologia',
-        difficulty: 1,
-        question: 'La caffeina appartiene a quale categoria di sostanze?',
-        options: [
-            'Psichedelici',
-            'Downer',
-            'Stimolanti',
-            'Dissociativi'
-        ],
-        correct: 2,
-        explanation: 'La caffeina è uno stimolante. Aumenta la vigilanza e riduce la sensazione di stanchezza agendo come antagonista dei recettori dell\'adenosina.',
-        link: '/sostanze/caffeina'
-    },
-    {
-        id: 6,
-        category: 'farmacologia',
-        difficulty: 2,
-        question: 'Cosa sono i "downer"?',
-        options: [
-            'Sostanze che causano euforia intensa',
-            'Sostanze con effetto rilassante che rallentano le attività corporee',
-            'Sostanze che alterano la percezione sensoriale',
-            'Sostanze che aumentano l\'energia'
-        ],
-        correct: 1,
-        explanation: 'I downer (alcol, canapa, eroina, benzodiazepine) distendono i muscoli, riducono l\'ansia e rallentano le funzioni corporee. Hanno un potenziale di dipendenza elevato.',
-        link: '/sostanze'
-    },
-    {
-        id: 7,
-        category: 'farmacologia',
-        difficulty: 2,
-        question: 'Cosa significa "tolleranza" in farmacologia?',
-        options: [
-            'La capacità di accettare gli effetti collaterali',
-            'La necessità di aumentare il dosaggio per ottenere lo stesso effetto',
-            'La resistenza legale al consumo',
-            'La capacità di consumare senza effetti'
-        ],
-        correct: 1,
-        explanation: 'La tolleranza si sviluppa quando il corpo si adatta alla sostanza, richiedendo dosi sempre maggiori per ottenere lo stesso effetto. Questo aumenta significativamente i rischi.'
-    },
-    {
-        id: 8,
-        category: 'farmacologia',
-        difficulty: 3,
-        question: 'Quale neurotrasmettitore è principalmente coinvolto negli effetti empatogeni dell\'MDMA?',
-        options: [
-            'Dopamina',
-            'GABA',
-            'Serotonina',
-            'Acetilcolina'
-        ],
-        correct: 2,
-        explanation: 'L\'MDMA agisce principalmente favorendo il rilascio massivo di serotonina, responsabile delle sensazioni di empatia, apertura emotiva e connessione con gli altri.',
-        link: '/sostanze/ecstasy-mdma'
-    },
-    {
-        id: 9,
-        category: 'farmacologia',
-        difficulty: 1,
-        question: 'L\'alcol appartiene a quale categoria di sostanze psicoattive?',
-        options: [
-            'Stimolanti',
-            'Psichedelici',
-            'Downer',
-            'Empatogeni'
-        ],
-        correct: 2,
-        explanation: 'L\'alcol è un downer: deprime il sistema nervoso centrale, rallenta i riflessi e riduce le inibizioni. È la sostanza psicoattiva più consumata e una delle più pericolose.',
-        link: '/sostanze/alcol'
-    },
-    {
-        id: 10,
-        category: 'farmacologia',
-        difficulty: 3,
-        question: 'Cos\'è la "sindrome serotoninergica"?',
-        options: [
-            'Un effetto piacevole della serotonina',
-            'Una carenza di serotonina nel cervello',
-            'Un\'emergenza medica causata da eccesso di serotonina',
-            'Un test per misurare la serotonina'
-        ],
-        correct: 2,
-        explanation: 'La sindrome serotoninergica è un\'emergenza potenzialmente letale causata da un eccesso di serotonina, spesso dovuta al mix di MDMA con antidepressivi (SSRI/SNRI) o MAO-inibitori.',
-        link: '/rischi/policonsumo'
-    },
-    // === MIX & INTERAZIONI ===
-    {
-        id: 11,
-        category: 'mix',
-        difficulty: 1,
-        question: 'Quale mix è considerato particolarmente pericoloso?',
-        options: [
-            'Cannabis + caffeina',
-            'Alcol + GHB/GBL',
-            'Tabacco + nicotina',
-            'Acqua + vitamine'
-        ],
-        correct: 1,
-        explanation: 'Il mix alcol + GHB/GBL è estremamente pericoloso! Entrambi sono downer e potenziano reciprocamente gli effetti depressivi sul sistema respiratorio, rischiando arresto respiratorio e morte.',
-        link: '/rischi/policonsumo'
-    },
-    {
-        id: 12,
-        category: 'mix',
-        difficulty: 2,
-        question: 'Perché mescolare stimolanti e downer è rischioso?',
-        options: [
-            'Gli effetti si annullano a vicenda',
-            'Il corpo riceve segnali contraddittori e i rischi di sovradosaggio aumentano',
-            'Non ci sono rischi particolari',
-            'Si diventa più sobri'
-        ],
-        correct: 1,
-        explanation: 'Mescolare stimolanti e downer maschera gli effetti dell\'altra sostanza, portando a consumarne di più. Quando una sostanza smette di agire prima dell\'altra, gli effetti residui possono essere pericolosi.',
-        link: '/rischi/policonsumo'
-    },
-    {
-        id: 13,
-        category: 'mix',
-        difficulty: 3,
-        question: 'Perché è pericoloso assumere MDMA con antidepressivi SSRI?',
-        options: [
-            'Gli SSRI annullano gli effetti dell\'MDMA',
-            'Il rischio di sindrome serotoninergica potenzialmente letale',
-            'Si sviluppa dipendenza più rapidamente',
-            'Causa allergie cutanee'
-        ],
-        correct: 1,
-        explanation: 'Gli SSRI bloccano la ricaptazione della serotonina. Combinati con l\'MDMA (che ne causa il rilascio massivo), possono provocare un accumulo pericoloso di serotonina nel cervello → sindrome serotoninergica.',
-        link: '/rischi/policonsumo'
-    },
-    {
-        id: 14,
-        category: 'mix',
-        difficulty: 2,
-        question: 'Cosa si rischia mescolando cocaina e alcol?',
-        options: [
-            'Nessun rischio aggiuntivo',
-            'Si forma cocaetilene, una sostanza tossica per il cuore',
-            'L\'alcol annulla gli effetti della cocaina',
-            'Si diventa più lucidi'
-        ],
-        correct: 1,
-        explanation: 'Quando cocaina e alcol vengono assunti insieme, il fegato produce cocaetilene, una sostanza cardiotossica che aumenta significativamente il rischio di infarto e aritmie.',
-        link: '/rischi/policonsumo'
-    },
-    // === ASPETTI LEGALI ===
-    {
-        id: 15,
-        category: 'legale',
-        difficulty: 1,
-        question: 'Il Drug Checking in Svizzera è...',
-        options: [
-            'Illegale e punibile',
-            'Legale e offerto come servizio di prevenzione',
-            'Disponibile solo con prescrizione medica',
-            'Riservato alle forze dell\'ordine'
-        ],
-        correct: 1,
-        explanation: 'In Svizzera il Drug Checking è un servizio di prevenzione legale, offerto da diverse organizzazioni come danno.ch, per analizzare in modo anonimo la composizione delle sostanze.',
-        link: '/drugchecking'
-    },
-    {
-        id: 16,
-        category: 'legale',
-        difficulty: 2,
-        question: 'In Svizzera, guidare sotto l\'effetto di cannabis è...',
-        options: [
-            'Legale sotto i 18 anni',
-            'Tollerato con basse quantità',
-            'Vietato con tolleranza zero per il THC',
-            'Permesso se si ha la patente da più di 5 anni'
-        ],
-        correct: 2,
-        explanation: 'In Svizzera vige la tolleranza zero per il THC nella circolazione stradale. Anche tracce minime nel sangue comportano sanzioni, ritiro della patente e procedimenti penali.',
-        link: '/rischi/tracce-consumo-organismo'
-    },
-    {
-        id: 17,
-        category: 'legale',
-        difficulty: 2,
-        question: 'Le "Nuove Sostanze Psicoattive" (NSP) sono chiamate anche...',
-        options: [
-            'Farmaci da banco',
-            'Legal highs / designer drugs',
-            'Integratori alimentari',
-            'Vitamine sintetiche'
-        ],
-        correct: 1,
-        explanation: 'Le NSP (New Psychoactive Substances) sono dette "legal highs" perché modificano la struttura chimica di sostanze illegali per aggirare la legislazione, ma NON significa che siano sicure.',
-        link: '/sostanze/nsp'
-    },
-    // === EMERGENZE ===
-    {
-        id: 18,
-        category: 'emergenze',
-        difficulty: 1,
-        question: 'Qual è il numero d\'emergenza da chiamare in Svizzera?',
-        options: [
-            '112',
-            '144',
-            '118',
-            '911'
-        ],
-        correct: 1,
-        explanation: 'Il 144 è il numero delle urgenze sanitarie in Svizzera. Non esitare MAI a chiamare in caso di emergenza — non ci sono conseguenze legali per chi chiede aiuto.',
-        link: '/rischi/emergenze'
-    },
-    {
-        id: 19,
-        category: 'emergenze',
-        difficulty: 1,
-        question: 'Se qualcuno è incosciente ma respira, quale posizione assume?',
-        options: [
-            'Seduto a gambe incrociate',
-            'Posizione di recupero laterale',
-            'Supino con le braccia lungo i fianchi',
-            'In piedi appoggiato al muro'
-        ],
-        correct: 1,
-        explanation: 'La posizione laterale di sicurezza impedisce il soffocamento per aspirazione del vomito. Metti la persona su un fianco con la bocca verso il basso e chiama immediatamente il 144.',
-        link: '/rischi/emergenze'
-    },
-    {
-        id: 20,
-        category: 'emergenze',
-        difficulty: 2,
-        question: 'In caso di sospetto colpo di calore (ipertermia), cosa fare?',
-        options: [
-            'Dare alcol per raffreddare il corpo',
-            'Spostare in un luogo fresco, bagnare con acqua, chiamare il 144',
-            'Far muovere la persona per far circolare il sangue',
-            'Dare caffeina per tenerla sveglia'
-        ],
-        correct: 1,
-        explanation: 'L\'ipertermia è un\'emergenza comune con MDMA e stimolanti in ambienti caldi. Spostare in luogo fresco, bagnare con acqua tiepida (non ghiacciata), far bere acqua a piccoli sorsi e chiamare subito il 144.',
-        link: '/rischi/emergenze'
-    },
-    {
-        id: 21,
-        category: 'emergenze',
-        difficulty: 3,
-        question: 'In caso di overdose da oppiacei, quale farmaco può salvare la vita?',
-        options: [
-            'Adrenalina',
-            'Naloxone (Narcan)',
-            'Aspirina',
-            'Diazepam'
-        ],
-        correct: 1,
-        explanation: 'Il Naloxone (Narcan) è un antagonista degli oppiacei che può invertire rapidamente un\'overdose da eroina o fentanyl. È disponibile come spray nasale ed è fondamentale averlo a disposizione.',
-        link: '/rischi/emergenze'
-    },
-    {
-        id: 22,
-        category: 'rdd',
-        difficulty: 1,
-        question: 'Qual è il modo più sicuro per provare una nuova sostanza?',
-        options: [
-            'Prendere una dose piena subito',
-            'Iniziare con una dose ridotta (allergy test) e aspettare gli effetti',
-            'Prendere due sostanze insieme per confrontare',
-            'Fidarsi di chi te la vende'
-        ],
-        correct: 1,
-        explanation: 'Inizia SEMPRE con una dose ridotta (allergy test) quando provi qualcosa di nuovo. Aspetta gli effetti completi prima di eventualmente ridosare. Ogni corpo reagisce diversamente.',
-        link: '/rischi'
-    },
-    {
-        id: 23,
-        category: 'farmacologia',
-        difficulty: 3,
-        question: 'I recettori GABA sono il bersaglio principale di quali sostanze?',
-        options: [
-            'LSD e funghi',
-            'Benzodiazepine, alcol e GHB',
-            'Cocaina e anfetamine',
-            'MDMA e MDA'
-        ],
-        correct: 1,
-        explanation: 'I recettori GABA-A sono potenziati da benzodiazepine, alcol, GHB e barbiturici. Il GABA è il principale neurotrasmettitore inibitorio — ecco perché queste sostanze causano sedazione e rilassamento.',
-    },
-    {
-        id: 24,
-        category: 'mix',
-        difficulty: 3,
-        question: 'Perché il mix MDMA + alcol è sconsigliato?',
-        options: [
-            'L\'alcol riduce gli effetti dell\'MDMA',
-            'L\'MDMA maschera l\'intossicazione alcolica, rischio disidratazione e ipertermia',
-            'Non ci sono rischi particolari',
-            'L\'MDMA neutralizza l\'alcol nel sangue'
-        ],
-        correct: 1,
-        explanation: 'L\'MDMA riduce la percezione dell\'ubriachezza, portando a bere di più. Inoltre entrambe le sostanze favoriscono la disidratazione e l\'ipertermia, aumentando il rischio di colpo di calore.',
-        link: '/rischi/policonsumo'
-    },
-    {
-        id: 25,
-        category: 'emergenze',
-        difficulty: 2,
-        question: 'Quando NON bisogna esitare a chiamare il 144?',
-        options: [
-            'Solo quando qualcuno perde conoscenza',
-            'Mai, per evitare problemi legali',
-            'Sempre in caso di dubbio — meglio una chiamata in più che una vita in meno',
-            'Solo se si è maggiorenni'
-        ],
-        correct: 2,
-        explanation: 'Il personale medico è tenuto al segreto professionale. Non ci sono conseguenze legali per chi chiede aiuto. Una chiamata può salvare una vita. Non esitare MAI.',
-        link: '/rischi/emergenze'
-    },
+    // ═══ RIDUZIONE DEL DANNO (25) ═══
+    { id: 1, category: 'rdd', difficulty: 1, question: 'Qual è la regola fondamentale della riduzione del danno?', options: ['Non consumare mai sostanze', 'Informarsi prima di consumare e ridurre i rischi', 'Consumare solo sostanze legali', 'Affidarsi al parere degli amici'], correct: 1, explanation: 'La riduzione del danno non promuove né condanna il consumo: mira a fornire informazioni oggettive per ridurre i rischi.', link: '/rischi' },
+    { id: 2, category: 'rdd', difficulty: 1, question: 'Cosa significa "Set & Setting"?', options: ['Il dosaggio e la modalità di assunzione', 'Lo stato d\'animo (set) e l\'ambiente circostante (setting)', 'La composizione chimica della sostanza', 'L\'insieme di regole legali'], correct: 1, explanation: '"Set" è il tuo stato mentale, fisico ed emotivo. "Setting" è l\'ambiente e le persone con cui ti trovi.', link: '/rischi/drug-set-setting' },
+    { id: 3, category: 'rdd', difficulty: 2, question: 'Perché è importante fare il Drug Checking?', options: ['Per sapere se la sostanza è legale', 'Per conoscere la composizione e il dosaggio reale', 'Per ottenere un certificato di qualità', 'Per registrare il proprio consumo'], correct: 1, explanation: 'Il Drug Checking analizza la composizione reale delle sostanze, identificando adulteranti pericolosi e dosaggi inattesi.', link: '/drugchecking' },
+    { id: 4, category: 'rdd', difficulty: 2, question: 'Dopo aver consumato MDMA, quanto tempo aspettare prima di riconsumarne?', options: ['1-2 giorni', '1 settimana', '3-4 settimane minimo', '6 mesi'], correct: 2, explanation: 'L\'MDMA esaurisce le riserve di serotonina. Il corpo impiega almeno 3-4 settimane per rigenerarle.', link: '/sostanze/mdma' },
+    { id: 5, category: 'rdd', difficulty: 1, question: 'Qual è il modo più sicuro per provare una nuova sostanza?', options: ['Prendere una dose piena subito', 'Iniziare con una dose ridotta e aspettare gli effetti', 'Prendere due sostanze insieme per confrontare', 'Fidarsi di chi te la vende'], correct: 1, explanation: 'Inizia SEMPRE con una dose ridotta (allergy test) quando provi qualcosa di nuovo.', link: '/rischi' },
+    { id: 6, category: 'rdd', difficulty: 1, question: 'Cosa si deve fare se ci si sente male dopo aver consumato?', options: ['Continuare a consumare per contrastare', 'Cercare un luogo tranquillo e chiedere aiuto', 'Bere alcol per rilassarsi', 'Andare subito a dormire senza dirlo a nessuno'], correct: 1, explanation: 'Cercare un luogo sicuro, informare qualcuno e, se necessario, chiamare il 144. Non restare soli.', link: '/rischi/emergenze' },
+    { id: 7, category: 'rdd', difficulty: 2, question: 'Quale fattore NON influenza gli effetti di una sostanza?', options: ['Il peso corporeo', 'Il segno zodiacale', 'Lo stato emotivo', 'L\'ultima volta che si è mangiato'], correct: 1, explanation: 'Peso, stato emotivo, alimentazione sono tutti fattori reali. Il segno zodiacale non ha alcuna influenza scientifica.' },
+    { id: 8, category: 'rdd', difficulty: 2, question: 'Cosa significa "dosare con attenzione" (safer use)?', options: ['Pesare la sostanza con una bilancia di precisione', 'Prendere sempre la stessa quantità', 'Fidarsi del venditore sulla quantità', 'Non importa la quantità'], correct: 0, explanation: 'Una bilancia di precisione (0.001g) è fondamentale. Le differenze di pochi milligrammi possono essere cruciali.' },
+    { id: 9, category: 'rdd', difficulty: 1, question: 'L\'idratazione durante il consumo di stimolanti è importante perché:', options: ['Le sostanze disidratano e può causare colpo di calore', 'L\'acqua neutralizza le sostanze', 'Bisogna bere almeno 5 litri', 'Non è importante'], correct: 0, explanation: 'Stimolanti e MDMA aumentano la temperatura corporea. Bere acqua a piccoli sorsi (0.5L/h max) previene la disidratazione.' },
+    { id: 10, category: 'rdd', difficulty: 3, question: 'Quale pratica è raccomandata per lo sniffo (insufflazione nasale)?', options: ['Usare banconote per insufflare', 'Usare una cannuccia personale pulita, mai condividerla', 'Alternare le narici non è importante', 'Insufflare il più forte possibile'], correct: 1, explanation: 'Condividere cannucce trasmette epatite C e altre infezioni. Usare sempre materiale personale e pulire il naso dopo.' },
+    { id: 11, category: 'rdd', difficulty: 2, question: 'Perché è sconsigliato consumare sostanze da soli?', options: ['È illegale consumare da soli', 'Nessuno può chiamare aiuto in caso di emergenza', 'Gli effetti sono più deboli da soli', 'Non è sconsigliato'], correct: 1, explanation: 'In caso di overdose o reazione avversa, avere qualcuno di fiducia vicino può salvare la vita.' },
+    { id: 12, category: 'rdd', difficulty: 1, question: 'Il "chill out" in un evento notturno serve a:', options: ['Vendere sostanze in modo sicuro', 'Offrire uno spazio tranquillo per riprendersi', 'Controllare i documenti dei partecipanti', 'Nessuna di queste'], correct: 1, explanation: 'Il chill out è uno spazio sicuro dove le persone possono riprendersi, reidratarsi e ricevere assistenza.' },
+    { id: 13, category: 'rdd', difficulty: 3, question: 'Cosa si intende per "re-dosing" e perché è rischioso?', options: ['Prendere una seconda dose prima che la prima faccia effetto', 'Prendere la stessa dose il giorno dopo', 'Dimezzare sempre la dose', 'Mischiare due sostanze diverse'], correct: 0, explanation: 'Re-dosare prima che la prima dose faccia pieno effetto porta facilmente a sovradosaggi accidentali.' },
+    { id: 14, category: 'rdd', difficulty: 2, question: 'Quale informazione NON è utile per il Drug Checking?', options: ['Il colore e la forma della sostanza', 'Dove l\'hai acquistata (nome del venditore)', 'In quale contesto pensi di consumarla', 'La quantità totale acquistata'], correct: 1, explanation: 'Il Drug Checking è anonimo. Non serve e non si deve rivelare il nome del venditore. Servono aspetto e contesto.' },
+    { id: 15, category: 'rdd', difficulty: 1, question: 'Consumare a stomaco pieno o vuoto fa differenza?', options: ['No, non cambia nulla', 'Sì, a stomaco pieno gli effetti sono attenuati e più lenti', 'Meglio sempre a stomaco vuoto', 'Solo per le sostanze liquide'], correct: 1, explanation: 'A stomaco pieno l\'assorbimento è più lento e prevedibile. A stomaco vuoto gli effetti sono più rapidi e intensi.' },
+    { id: 16, category: 'rdd', difficulty: 2, question: 'Perché la cannabis può essere un "gateway" per la tolleranza?', options: ['Perché chi fuma cannabis proverà sempre droghe pesanti', 'Perché l\'uso regolare sviluppa tolleranza, portando ad aumentare le dosi', 'Perché la cannabis è la droga più pericolosa', 'Non esiste il concetto di gateway'], correct: 1, explanation: 'La tolleranza alla cannabis porta ad aumentare dosi o frequenza. Il concetto di "gateway drug" è più complesso e va oltre la sola tolleranza.' },
+    { id: 17, category: 'rdd', difficulty: 3, question: 'In cosa consiste il "trip sitting"?', options: ['Sedere per terra durante un viaggio psichedelico', 'Avere una persona sobria e fidata che assiste durante l\'esperienza', 'Un tipo di meditazione', 'Prendere appunti durante il consumo'], correct: 1, explanation: 'Il trip sitter è una persona sobria e fidata che rimane presente per assistere e rassicurare in caso di difficoltà.' },
+    { id: 18, category: 'rdd', difficulty: 2, question: 'Quale NON è un segnale di allarme durante il consumo?', options: ['Forte mal di testa improvviso', 'Sentire la musica in modo diverso dal solito', 'Dolore toracico', 'Difficoltà a respirare'], correct: 1, explanation: 'Alterazioni percettive sono normali con molte sostanze. Mal di testa, dolore toracico e difficoltà respiratorie sono emergenze.' },
+    { id: 19, category: 'rdd', difficulty: 1, question: 'Come si conservano le sostanze in modo più sicuro?', options: ['In tasca, sempre a portata di mano', 'In contenitori etichettati, fuori dalla portata di altri', 'Nel frigorifero con il cibo', 'Non serve conservarle'], correct: 1, explanation: 'Etichettare per evitare confusione, conservare in luogo sicuro lontano da bambini e animali.' },
+    { id: 20, category: 'rdd', difficulty: 3, question: 'Cos\'è la "harm reduction" applicata al contesto festivo?', options: ['Impedire l\'ingresso a chi consuma', 'Informare, testare sostanze, offrire chill out e primo soccorso', 'Sorveglianza delle forze dell\'ordine', 'Vendita di sostanze sicure'], correct: 1, explanation: 'La RDD nei contesti festivi include Drug Checking mobile, peer education, chill out, distribuzione materiale sterile e primo soccorso.' },
+
+    // ═══ FARMACOLOGIA (25) ═══
+    { id: 21, category: 'farmacologia', difficulty: 1, question: 'La caffeina appartiene a quale categoria?', options: ['Psichedelici', 'Downer', 'Stimolanti', 'Dissociativi'], correct: 2, explanation: 'La caffeina è uno stimolante che agisce come antagonista dei recettori dell\'adenosina.', link: '/sostanze/caffeina' },
+    { id: 22, category: 'farmacologia', difficulty: 2, question: 'Cosa sono i "downer"?', options: ['Sostanze che causano euforia intensa', 'Sostanze che rallentano le attività corporee', 'Sostanze che alterano la percezione', 'Sostanze che aumentano l\'energia'], correct: 1, explanation: 'I downer (alcol, oppiacei, benzodiazepine) deprimono il SNC, causando rilassamento e sedazione.' },
+    { id: 23, category: 'farmacologia', difficulty: 2, question: 'Cosa significa "tolleranza"?', options: ['La capacità di accettare gli effetti collaterali', 'La necessità di aumentare il dosaggio per lo stesso effetto', 'La resistenza legale al consumo', 'La capacità di consumare senza effetti'], correct: 1, explanation: 'La tolleranza richiede dosi sempre maggiori, aumentando significativamente i rischi.' },
+    { id: 24, category: 'farmacologia', difficulty: 3, question: 'Quale neurotrasmettitore è coinvolto negli effetti dell\'MDMA?', options: ['Dopamina', 'GABA', 'Serotonina', 'Acetilcolina'], correct: 2, explanation: 'L\'MDMA rilascia massivamente serotonina, responsabile di empatia e connessione emotiva.', link: '/sostanze/mdma' },
+    { id: 25, category: 'farmacologia', difficulty: 1, question: 'L\'alcol è classificato come:', options: ['Stimolante', 'Psichedelico', 'Downer', 'Empatogeno'], correct: 2, explanation: 'L\'alcol è un downer: deprime il SNC, rallenta i riflessi e riduce le inibizioni.', link: '/sostanze/alcol' },
+    { id: 26, category: 'farmacologia', difficulty: 3, question: 'Cos\'è la sindrome serotoninergica?', options: ['Un effetto piacevole della serotonina', 'Una carenza di serotonina', 'Un\'emergenza da eccesso di serotonina', 'Un test per misurare la serotonina'], correct: 2, explanation: 'Emergenza potenzialmente letale da eccesso di serotonina, spesso causata dal mix MDMA + SSRI.', link: '/rischi/policonsumo' },
+    { id: 27, category: 'farmacologia', difficulty: 1, question: 'La ketamina è classificata come:', options: ['Stimolante', 'Empatogeno', 'Dissociativo', 'Psichedelico classico'], correct: 2, explanation: 'La ketamina è un dissociativo: causa distacco tra mente e corpo, stati onirici e analgesia.', link: '/sostanze/ketamina' },
+    { id: 28, category: 'farmacologia', difficulty: 2, question: 'Cosa sono le NSP (Nuove Sostanze Psicoattive)?', options: ['Farmaci innovativi approvati', 'Sostanze create modificando molecole note per aggirare la legge', 'Vitamine sintetiche', 'Integratori sportivi'], correct: 1, explanation: 'Le NSP modificano strutture chimiche di sostanze illegali. Spesso poco studiate e con rischi imprevedibili.', link: '/sostanze/nsp' },
+    { id: 29, category: 'farmacologia', difficulty: 3, question: 'I recettori GABA sono il bersaglio principale di:', options: ['LSD e funghi', 'Benzodiazepine, alcol e GHB', 'Cocaina e anfetamine', 'MDMA e MDA'], correct: 1, explanation: 'Il GABA è il principale neurotrasmettitore inibitorio. Benzo, alcol e GHB ne potenziano l\'azione.' },
+    { id: 30, category: 'farmacologia', difficulty: 2, question: 'Come agisce la cocaina sul cervello?', options: ['Rilascia serotonina', 'Blocca la ricaptazione della dopamina', 'Attiva i recettori GABA', 'Inibisce l\'acetilcolina'], correct: 1, explanation: 'La cocaina blocca il trasportatore della dopamina, causando accumulo nel cervello → euforia e stimolazione.', link: '/sostanze/cocaina' },
+    { id: 31, category: 'farmacologia', difficulty: 1, question: 'L\'LSD è classificato come:', options: ['Stimolante', 'Downer', 'Psichedelico', 'Dissociativo'], correct: 2, explanation: 'L\'LSD è un psichedelico serotoninergico che agisce sui recettori 5-HT2A.', link: '/sostanze/lsd' },
+    { id: 32, category: 'farmacologia', difficulty: 3, question: 'Cosa differenzia la dipendenza fisica da quella psicologica?', options: ['Sono la stessa cosa', 'La fisica causa sintomi di astinenza corporei, la psicologica craving mentale', 'La psicologica non esiste', 'Solo le droghe "pesanti" causano dipendenza'], correct: 1, explanation: 'La dipendenza fisica causa sintomi fisici alla cessazione. Quella psicologica è il desiderio compulsivo di consumare.' },
+    { id: 33, category: 'farmacologia', difficulty: 2, question: 'Il GHB/GBL agisce su quale sistema?', options: ['Dopaminergico', 'GABAergico', 'Serotoninergico', 'Colinergico'], correct: 1, explanation: 'Il GHB è un agonista GABA-B e ha un\'azione depressiva sul SNC. Dosaggio critico: pochi millilitri di differenza.', link: '/sostanze/ghb' },
+    { id: 34, category: 'farmacologia', difficulty: 2, question: 'Cosa sono gli empatogeni/entactogeni?', options: ['Sostanze che causano empatia e connessione emotiva', 'Sostanze che causano allucinazioni', 'Sostanze che causano sedazione', 'Sostanze che causano aggressività'], correct: 0, explanation: 'MDMA, MDA, MDEA sono empatogeni: favoriscono apertura emotiva, empatia e senso di connessione.' },
+    { id: 35, category: 'farmacologia', difficulty: 3, question: 'Perché il fentanyl è particolarmente pericoloso?', options: ['Perché è legale', 'Perché è attivo in dosi di microgrammi (100x più potente della morfina)', 'Perché ha un sapore amaro', 'Perché è difficile da trovare'], correct: 1, explanation: 'Il fentanyl è 50-100 volte più potente della morfina. Pochi microgrammi possono essere letali — ecco perché è letale come adulterante.' },
+    { id: 36, category: 'farmacologia', difficulty: 1, question: 'Le benzodiazepine sono usate in medicina per:', options: ['Aumentare l\'energia', 'Trattare ansia e insonnia', 'Curare le infezioni', 'Migliorare la memoria'], correct: 1, explanation: 'Le benzodiazepine (Xanax, Valium) sono ansiolitici e sedativi che agiscono sui recettori GABA-A.', link: '/sostanze/benzodiazepine' },
+    { id: 37, category: 'farmacologia', difficulty: 2, question: 'Il DXM (destrometorfano) si trova in:', options: ['Sciroppi per la tosse', 'Colliri', 'Creme solari', 'Antidolorifici'], correct: 0, explanation: 'Il DXM è un dissociativo presente in alcuni sciroppi per la tosse. A dosi elevate causa effetti dissociativi.', link: '/sostanze/dxm' },
+    { id: 38, category: 'farmacologia', difficulty: 3, question: 'Cos\'è la "cross-tolleranza"?', options: ['Tolleranza che si sviluppa tra sostanze diverse della stessa classe', 'Tolleranza che passa da una persona all\'altra', 'Tolleranza che si sviluppa molto velocemente', 'Non esiste'], correct: 0, explanation: 'La cross-tolleranza si sviluppa tra sostanze che agiscono sugli stessi recettori (es. LSD e funghi → entrambi 5-HT2A).' },
+    { id: 39, category: 'farmacologia', difficulty: 1, question: 'Il popper (nitrito di amile) causa principalmente:', options: ['Allucinazioni visive', 'Vasodilatazione e rush di calore', 'Stimolazione prolungata', 'Sedazione profonda'], correct: 1, explanation: 'I popper sono vasodilatatori ad azione brevissima (secondi). Causano rush di calore e rilassamento muscolare.', link: '/sostanze/popper' },
+    { id: 40, category: 'farmacologia', difficulty: 2, question: 'Cosa succede nel "comedown" dall\'MDMA?', options: ['Gli effetti aumentano', 'Si sperimentano stanchezza, umore basso e irritabilità', 'Si diventa più energici', 'Non succede nulla'], correct: 1, explanation: 'Il comedown è causato dall\'esaurimento delle scorte di serotonina. Dura 1-3 giorni con stanchezza e umore basso.' },
+
+    // ═══ MIX & INTERAZIONI (25) ═══
+    { id: 41, category: 'mix', difficulty: 1, question: 'Quale mix è estremamente pericoloso?', options: ['Cannabis + caffeina', 'Alcol + GHB/GBL', 'Tabacco + nicotina', 'Acqua + vitamine'], correct: 1, explanation: 'Alcol + GHB/GBL: entrambi downer GABA. Rischio concreto di arresto respiratorio e morte.', link: '/rischi/policonsumo' },
+    { id: 42, category: 'mix', difficulty: 2, question: 'Perché mescolare stimolanti e downer è rischioso?', options: ['Gli effetti si annullano', 'Il corpo riceve segnali contraddittori, rischio sovradosaggio', 'Non ci sono rischi', 'Si diventa sobri'], correct: 1, explanation: 'Gli stimolanti mascherano la sedazione. Quando lo stimolante svanisce, l\'effetto downer residuo può essere fatale.' },
+    { id: 43, category: 'mix', difficulty: 3, question: 'Perché MDMA + antidepressivi SSRI è pericoloso?', options: ['Gli SSRI annullano l\'MDMA', 'Rischio di sindrome serotoninergica potenzialmente letale', 'Si sviluppa dipendenza più rapidamente', 'Causa allergie'], correct: 1, explanation: 'Gli SSRI + MDMA possono causare accumulo pericoloso di serotonina → sindrome serotoninergica.' },
+    { id: 44, category: 'mix', difficulty: 2, question: 'Cosa si forma mescolando cocaina e alcol?', options: ['Nessuna nuova sostanza', 'Cocaetilene, tossico per il cuore', 'Etanolo puro', 'Soda'], correct: 1, explanation: 'Il fegato produce cocaetilene, cardiotossico, che aumenta il rischio di infarto e aritmie.' },
+    { id: 45, category: 'mix', difficulty: 3, question: 'Perché MDMA + alcol è sconsigliato?', options: ['L\'alcol riduce gli effetti', 'L\'MDMA maschera l\'intossicazione, rischio disidratazione e ipertermia', 'Non ci sono rischi', 'L\'MDMA neutralizza l\'alcol'], correct: 1, explanation: 'L\'MDMA riduce la percezione dell\'ubriachezza. Entrambi disidratano e aumentano la temperatura corporea.' },
+    { id: 46, category: 'mix', difficulty: 1, question: 'Alcol + benzodiazepine è considerato:', options: ['Sicuro in piccole dosi', 'Una combinazione potenzialmente letale', 'Consigliato per rilassarsi', 'Innocuo'], correct: 1, explanation: 'Entrambi deprimono il SNC attraverso il sistema GABA. Il rischio di arresto respiratorio è molto alto.' },
+    { id: 47, category: 'mix', difficulty: 2, question: 'Oppiacei + benzodiazepine è la principale causa di:', options: ['Dipendenza psicologica', 'Overdose fatali nel mondo', 'Allucinazioni', 'Insonnia'], correct: 1, explanation: 'Questa combinazione è la principale causa di overdose fatali a livello globale — depressione respiratoria.' },
+    { id: 48, category: 'mix', difficulty: 2, question: 'Il "candy-flipping" è la combinazione di:', options: ['Cocaina + cannabis', 'LSD + MDMA', 'Alcol + energy drink', 'Ketamina + GHB'], correct: 1, explanation: 'LSD + MDMA: effetti molto intensi. Solo in ambiente sicuro con trip sitter. Non per inesperti.' },
+    { id: 49, category: 'mix', difficulty: 3, question: 'Perché cocaina + oppiacei ("speedball") è letale?', options: ['La cocaina neutralizza gli oppiacei', 'Quando la cocaina svanisce, la dose di oppiacei residua può causare arresto respiratorio', 'Non è pericoloso', 'Causa solo nausea'], correct: 1, explanation: 'Lo stimolante maschera l\'oppiaceo. Quando la cocaina svanisce (prima), la dose di oppiacei rimasta è potenzialmente fatale.' },
+    { id: 50, category: 'mix', difficulty: 1, question: 'Quale combinazione è relativamente a basso rischio?', options: ['Alcol + GHB', 'Cannabis + caffeina', 'Oppiacei + benzodiazepine', 'Cocaina + MDMA'], correct: 1, explanation: 'Cannabis + caffeina hanno interazione minima. La caffeina può contrastare la sonnolenza.' },
+    { id: 51, category: 'mix', difficulty: 2, question: 'Perché è pericoloso mischiare ketamina e alcol?', options: ['Non è pericoloso', 'Entrambi depressori: rischio di vomito con aspirazione e arresto respiratorio', 'Causa solo mal di testa', 'L\'alcol annulla la ketamina'], correct: 1, explanation: 'Entrambi deprimono il SNC. La ketamina può causare vomito e l\'alcol riduce i riflessi → rischio di soffocamento.' },
+    { id: 52, category: 'mix', difficulty: 3, question: 'Cosa si intende per "policonsumo"?', options: ['Consumare una sola sostanza regolarmente', 'Consumare più sostanze nella stessa occasione o periodo', 'Un tipo di terapia', 'Un controllo medico'], correct: 1, explanation: 'Il policonsumo moltiplica i rischi in modo non lineare. Le interazioni tra sostanze sono spesso imprevedibili.' },
+    { id: 53, category: 'mix', difficulty: 2, question: 'Cocaina + popper è pericoloso perché:', options: ['Non è pericoloso', 'Stimolante + vasodilatatore → rischio di aritmie cardiache', 'Causa solo vertigini', 'L\'effetto si annulla'], correct: 1, explanation: 'La cocaina è un vasocostrittore, il popper un vasodilatatore. Lo stress cardiovascolare è estremo.' },
+    { id: 54, category: 'mix', difficulty: 1, question: 'Quale regola base per il policonsumo è più importante?', options: ['Più sostanze = più divertimento', 'Meno sostanze possibili, mai mescolare categorie diverse', 'Basta bere acqua', 'Non esistono regole'], correct: 1, explanation: 'La regola d\'oro: meno è meglio. Non mescolare stimolanti con downer, evitare più di una sostanza alla volta.' },
+    { id: 55, category: 'mix', difficulty: 3, question: 'Il tramadolo con MDMA è pericoloso perché il tramadolo:', options: ['È un semplice antidolorifico', 'Ha attività serotoninergica → rischio sindrome serotoninergica', 'Non ha interazioni', 'Causa solo sonnolenza'], correct: 1, explanation: 'Il tramadolo, oltre all\'azione oppioide, inibisce la ricaptazione di serotonina → mix con MDMA può essere letale.' },
+
+    // ═══ ASPETTI LEGALI (15) ═══
+    { id: 56, category: 'legale', difficulty: 1, question: 'Il Drug Checking in Svizzera è:', options: ['Illegale e punibile', 'Legale come servizio di prevenzione', 'Solo con prescrizione medica', 'Riservato alle forze dell\'ordine'], correct: 1, explanation: 'In Svizzera il Drug Checking è legale, anonimo e gratuito.', link: '/drugchecking' },
+    { id: 57, category: 'legale', difficulty: 2, question: 'Guidare sotto THC in Svizzera:', options: ['Legale sotto i 18 anni', 'Tollerato in piccole quantità', 'Vietato con tolleranza zero', 'Permesso dopo 5 anni di patente'], correct: 2, explanation: 'Tolleranza zero per il THC nella circolazione stradale. Anche tracce minime comportano sanzioni.' },
+    { id: 58, category: 'legale', difficulty: 2, question: 'Le NSP sono chiamate anche:', options: ['Farmaci da banco', 'Legal highs / designer drugs', 'Integratori alimentari', 'Vitamine sintetiche'], correct: 1, explanation: 'Le NSP modificano molecole illegali per aggirare la legge, ma NON sono sicure.' },
+    { id: 59, category: 'legale', difficulty: 1, question: 'Chiamare il 144 per un\'overdose comporta conseguenze legali?', options: ['Sì, la polizia arresta tutti', 'No, il personale medico ha segreto professionale', 'Solo per i maggiorenni', 'Dipende dal cantone'], correct: 1, explanation: 'Il personale medico è tenuto al segreto professionale. Chiamare il 144 NON ha conseguenze legali. Può salvare una vita.' },
+    { id: 60, category: 'legale', difficulty: 3, question: 'In Svizzera il possesso per uso personale di cannabis è:', options: ['Completamente legale', 'Contravvenzione con multa fissa di 100 CHF (fino a 10g)', 'Reato penale grave', 'Legale solo in certi cantoni'], correct: 1, explanation: 'Dal 2013, il possesso di max 10g di cannabis per uso personale è sanzionato con multa fissa di 100 CHF.' },
+    { id: 61, category: 'legale', difficulty: 2, question: 'Il consumo di sostanze in Svizzera è:', options: ['Sempre legale', 'Non punibile (solo traffico e vendita sono reati)', 'Un reato penale', 'Legale solo a casa propria'], correct: 1, explanation: 'In Svizzera il consumo di per sé non è punibile. Sono punibili il possesso, la vendita e il traffico.' },
+    { id: 62, category: 'legale', difficulty: 3, question: 'La terapia con eroina assistita (HAT) in Svizzera:', options: ['Non esiste', 'È legale e disponibile per pazienti over 18 con dipendenza grave', 'È stata abolita nel 2020', 'È disponibile solo a Zurigo'], correct: 1, explanation: 'La Svizzera è stata pioniera della HAT dal 1994. Disponibile per adulti con dipendenza grave che non rispondono ad altri trattamenti.' },
+    { id: 63, category: 'legale', difficulty: 1, question: 'Vendere sostanze illegali in Svizzera è:', options: ['Legale in piccole quantità', 'Un reato penale', 'Tollerato tra amici', 'Una contravvenzione'], correct: 1, explanation: 'La vendita/traffico di sostanze è un reato penale secondo la LStup (Legge sugli stupefacenti).' },
+    { id: 64, category: 'legale', difficulty: 2, question: 'La canapa CBD (<1% THC) in Svizzera è:', options: ['Illegale', 'Legale per la vendita e il consumo', 'Legale solo per uso medico', 'In attesa di legalizzazione'], correct: 1, explanation: 'La cannabis con meno dell\'1% di THC è legale in Svizzera come prodotto del tabacco tassato.', link: '/sostanze/canapa-cbd' },
+    { id: 65, category: 'legale', difficulty: 3, question: 'Quanto tempo il THC resta rilevabile nelle urine?', options: ['24 ore', '3-5 giorni per uso singolo, fino a 30+ giorni per uso regolare', 'Esattamente 1 settimana', 'Non è rilevabile'], correct: 1, explanation: 'Il THC è liposolubile. Uso singolo: 3-5 giorni. Uso regolare: si accumula e resta rilevabile anche 30-90 giorni.' },
+
+    // ═══ EMERGENZE (20) ═══
+    { id: 66, category: 'emergenze', difficulty: 1, question: 'Il numero d\'emergenza sanitaria in Svizzera è:', options: ['112', '144', '118', '911'], correct: 1, explanation: 'Il 144 è il numero delle urgenze sanitarie. Non esitare MAI a chiamare.' },
+    { id: 67, category: 'emergenze', difficulty: 1, question: 'Persona incosciente ma respira — quale posizione?', options: ['Seduta', 'Posizione laterale di sicurezza', 'Supina', 'In piedi'], correct: 1, explanation: 'La posizione laterale impedisce il soffocamento per aspirazione del vomito.' },
+    { id: 68, category: 'emergenze', difficulty: 2, question: 'In caso di sospetto colpo di calore:', options: ['Dare alcol', 'Spostare al fresco, bagnare con acqua, chiamare 144', 'Far muovere la persona', 'Dare caffeina'], correct: 1, explanation: 'Ipertermia: spostare al fresco, bagnare con acqua tiepida, far bere a piccoli sorsi, chiamare 144.' },
+    { id: 69, category: 'emergenze', difficulty: 3, question: 'Il Naloxone (Narcan) è usato per:', options: ['Adrenalina', 'Invertire overdose da oppiacei', 'Allergie', 'Attacchi d\'ansia'], correct: 1, explanation: 'Il Naloxone è un antagonista oppioide che inverte rapidamente un\'overdose da eroina/fentanyl. Disponibile come spray nasale.' },
+    { id: 70, category: 'emergenze', difficulty: 2, question: 'In caso di emergenza, cosa dire al 144?', options: ['Solo "venite subito"', 'Cosa è successo, cosa ha preso la persona, dove siete, quanti anni ha', 'Nulla, basta chiamare', 'Il nome del venditore'], correct: 1, explanation: 'Informazioni chiave: cosa/quanto ha assunto, da quanto tempo, sintomi, luogo esatto, età e peso approssimativo.' },
+    { id: 71, category: 'emergenze', difficulty: 1, question: 'Una persona ha un "bad trip" psichedelico. Cosa fare?', options: ['Darle più sostanza per calmarsi', 'Portarla in un luogo tranquillo, parlare con voce calma, ricordare che passerà', 'Lasciarla sola', 'Dare alcol per rilassarla'], correct: 1, explanation: 'Ambiente calmo, voce rassicurante, ricordare che è un effetto temporaneo. Se i sintomi peggiorano, chiamare il 144.' },
+    { id: 72, category: 'emergenze', difficulty: 2, question: 'Se qualcuno ha convulsioni:', options: ['Mettere qualcosa in bocca', 'NON mettere nulla in bocca, proteggere la testa, mettere in posizione laterale dopo, chiamare 144', 'Scuoterlo per svegliarlo', 'Dargli acqua'], correct: 1, explanation: 'Non mettere MAI oggetti in bocca durante le convulsioni. Proteggere la testa, attendere che finiscano, PLS, chiamare 144.' },
+    { id: 73, category: 'emergenze', difficulty: 3, question: 'Quali sono i segni di overdose da oppiacei?', options: ['Agitazione e sudorazione', 'Pupille a spillo, respirazione rallentata/assente, labbra blu, incoscienza', 'Pupille dilatate e tachicardia', 'Vomito abbondante'], correct: 1, explanation: 'Pupille puntiformi, respirazione depressa, cianosi (labbra/unghie blu), perdita di coscienza. È un\'emergenza: 144 subito.' },
+    { id: 74, category: 'emergenze', difficulty: 1, question: 'Quali sono i segni di disidratazione?', options: ['Sete intensa, mal di testa, urine scure, confusione', 'Sudorazione abbondante', 'Appetito aumentato', 'Nessun segno visibile'], correct: 0, explanation: 'Sete, mal di testa, urine scure, vertigini, confusione. Con stimolanti/MDMA, idratarsi regolarmente (0.5L/h max).' },
+    { id: 75, category: 'emergenze', difficulty: 2, question: 'In caso di sospetta sindrome serotoninergica i sintomi includono:', options: ['Sonnolenza e rilassamento', 'Agitazione, tremore, ipertermia, mioclono, diarrea', 'Solo mal di testa', 'Nessun sintomo specifico'], correct: 1, explanation: 'Agitazione, tremore, febbre alta, clono (contrazioni muscolari ritmiche), diarrea. Emergenza: chiamare 144 immediatamente.' },
+    { id: 76, category: 'emergenze', difficulty: 1, question: 'Una persona respira ma non risponde. Cosa NON fare?', options: ['Metterla in posizione laterale', 'Chiamare il 144', 'Lasciarla supina — rischio soffocamento', 'Restare con lei'], correct: 2, explanation: 'NON lasciare supina una persona incosciente: se vomita rischia di soffocare. Sempre PLS e chiamare 144.' },
+    { id: 77, category: 'emergenze', difficulty: 3, question: 'L\'intossicazione da GHB/GBL si distingue perché:', options: ['Causa solo sonnolenza', 'Può passare rapidamente da coscienza al coma in pochi minuti', 'È sempre lieve', 'Dura 24 ore'], correct: 1, explanation: 'Il GHB ha un margine terapeutico strettissimo. La transizione da euforia a incoscienza può avvenire in minuti.' },
+    { id: 78, category: 'emergenze', difficulty: 2, question: 'In attesa dei soccorsi, cosa monitorare?', options: ['Il telefono', 'Respirazione, coscienza, temperatura, polso', 'Solo il colore della pelle', 'Nulla, basta aspettare'], correct: 1, explanation: 'Monitorare respirazione, livello di coscienza, temperatura corporea. Comunicare cambiamenti al 144.' },
+    { id: 79, category: 'emergenze', difficulty: 1, question: 'Perché NON bisogna MAI esitare a chiamare il 144?', options: ['Perché è gratuito', 'Perché è gratis, senza conseguenze legali, e può salvare una vita', 'Perché arriva sempre in 2 minuti', 'Perché altrimenti è reato'], correct: 1, explanation: 'Meglio una chiamata in più che una vita in meno. Il personale medico ha obbligo di segreto professionale.' },
+    { id: 80, category: 'emergenze', difficulty: 3, question: 'Cosa fare se una persona smette di respirare?', options: ['Aspettare che riprenda', 'Iniziare RCP (30 compressioni toraciche + 2 ventilazioni), chiamare 144', 'Darle una sberla', 'Metterla in posizione laterale'], correct: 1, explanation: 'Se non respira: chiamare 144, iniziare RCP (30:2). Se disponibile, usare un DAE (defibrillatore automatico).' },
 ];

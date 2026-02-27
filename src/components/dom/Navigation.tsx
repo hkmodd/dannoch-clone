@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon, Monitor } from 'lucide-react';
 import { MoleculeIcon, ShieldCrossIcon, FlaskBubblesIcon, HeartPulseIcon, GlossaryIcon } from '../icons/SectionIcons';
+import { useTheme } from '../ThemeProvider';
 
 const MAIN_NAV = [
   { name: 'Sostanze', path: '/sostanze', Icon: MoleculeIcon, color: 'text-emerald-400' },
@@ -16,6 +17,9 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const isHomepage = location.pathname === '/';
+  const { theme, resolved, toggleTheme } = useTheme();
+  const ThemeIcon = theme === 'dark' ? Moon : theme === 'light' ? Sun : Monitor;
+  const isLight = resolved === 'light';
 
   const secondaryLinks = [
     { name: 'Home', path: '/' },
@@ -31,8 +35,11 @@ export function Navigation() {
 
   return (
     <>
-      {/* Header — Logo left, hamburger right (both mobile & desktop). Hidden on homepage. */}
-      <header className="fixed top-0 left-0 w-full p-4 md:p-12 flex justify-between items-center z-50 mix-blend-difference pointer-events-none bg-black/20 backdrop-blur-[2px] md:bg-transparent md:backdrop-blur-none">
+      {/* Header */}
+      <header className={`fixed top-0 left-0 w-full p-4 md:p-12 flex justify-between items-center z-50 pointer-events-none transition-colors duration-500 ${isLight
+        ? 'bg-[#F0EBE3]/80 backdrop-blur-md md:bg-transparent md:backdrop-blur-none'
+        : 'bg-black/20 backdrop-blur-[2px] md:bg-transparent md:backdrop-blur-none mix-blend-difference'
+        }`}>
         <div className="pointer-events-auto">
           <Link to="/" className="text-2xl font-black tracking-tighter uppercase">danno.ch</Link>
           <p className="text-xs font-mono mt-1 opacity-70 uppercase tracking-widest hidden sm:block">
@@ -40,15 +47,26 @@ export function Navigation() {
           </p>
         </div>
 
-        {/* Hamburger — right side, hidden on homepage (homepage has everything accessible) */}
-        {!isHomepage && (
+        <div className="flex items-center gap-2 pointer-events-auto">
+          {/* Theme toggle */}
           <button
-            onClick={() => setIsOpen(true)}
-            className="p-2 hover:bg-white/10 rounded-full transition-colors pointer-events-auto"
+            onClick={toggleTheme}
+            className={`p-2 rounded-full transition-colors ${isLight ? 'hover:bg-black/10' : 'hover:bg-white/10'}`}
+            title={`Tema: ${theme === 'auto' ? 'Automatico' : theme === 'light' ? 'Chiaro' : 'Scuro'}`}
           >
-            <Menu className="w-6 h-6" />
+            <ThemeIcon className="w-5 h-5" />
           </button>
-        )}
+
+          {/* Hamburger — hidden on homepage */}
+          {!isHomepage && (
+            <button
+              onClick={() => setIsOpen(true)}
+              className={`p-2 rounded-full transition-colors ${isLight ? 'hover:bg-black/10' : 'hover:bg-white/10'}`}
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          )}
+        </div>
       </header>
 
       {/* Sidebar — always slides from RIGHT */}
@@ -61,20 +79,23 @@ export function Navigation() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
+              className={`fixed inset-0 backdrop-blur-sm z-[60] ${isLight ? 'bg-black/30' : 'bg-black/60'}`}
             />
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 w-full max-w-md h-full bg-[#0a0a0a] border-l border-white/10 z-[70] p-8 md:p-12 flex flex-col"
+              className={`fixed top-0 right-0 w-full max-w-md h-full border-l z-[70] p-8 md:p-12 flex flex-col transition-colors ${isLight
+                ? 'bg-[#F0EBE3] border-black/10'
+                : 'bg-[#0a0a0a] border-white/10'
+                }`}
             >
               <div className="flex justify-between items-center mb-10">
                 <h2 className="text-xl font-black uppercase tracking-tighter">Menu</h2>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                  className={`p-2 rounded-full transition-colors ${isLight ? 'hover:bg-black/10' : 'hover:bg-white/10'}`}
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -82,7 +103,7 @@ export function Navigation() {
 
               <div className="flex flex-col gap-4 overflow-y-auto flex-grow">
                 {/* Main navigation with icons */}
-                <div className="flex flex-col gap-3 mb-6 pb-6 border-b border-white/10">
+                <div className={`flex flex-col gap-3 mb-6 pb-6 border-b ${isLight ? 'border-black/10' : 'border-white/10'}`}>
                   {MAIN_NAV.map((item) => {
                     const isActive = location.pathname.startsWith(item.path);
                     return (
@@ -91,8 +112,8 @@ export function Navigation() {
                         onClick={() => setIsOpen(false)}
                         to={item.path}
                         className={`flex items-center gap-4 p-3 rounded-xl transition-all ${isActive
-                          ? 'bg-white/10 border border-white/10'
-                          : 'hover:bg-white/5 border border-transparent'
+                          ? (isLight ? 'bg-black/5 border border-black/10' : 'bg-white/10 border border-white/10')
+                          : (isLight ? 'hover:bg-black/5 border border-transparent' : 'hover:bg-white/5 border border-transparent')
                           }`}
                       >
                         <item.Icon className={`${item.color} shrink-0`} size={28} />
@@ -117,8 +138,8 @@ export function Navigation() {
                 </div>
 
                 {/* Strumenti Interattivi */}
-                <div className="flex flex-col gap-3 mt-6 pt-6 border-t border-white/10">
-                  <h3 className="font-mono text-[10px] uppercase tracking-widest text-white/30 mb-1">Strumenti</h3>
+                <div className={`flex flex-col gap-3 mt-6 pt-6 border-t ${isLight ? 'border-black/10' : 'border-white/10'}`}>
+                  <h3 className={`font-mono text-[10px] uppercase tracking-widest mb-1 ${isLight ? 'text-black/30' : 'text-white/30'}`}>Strumenti</h3>
                   {[
                     { name: '🧠 Quiz', path: '/quiz' },
                     { name: '⚖️ Comparatore', path: '/comparatore' },
@@ -138,7 +159,7 @@ export function Navigation() {
               </div>
 
               {/* Social links with SVG icons */}
-              <div className="mt-auto pt-8 border-t border-white/10 flex gap-6 items-center">
+              <div className={`mt-auto pt-8 border-t flex gap-6 items-center ${isLight ? 'border-black/10' : 'border-white/10'}`}>
                 <a href="https://www.facebook.com/Dannoch-125415657538362/" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white/50 transition-colors">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
                   <span className="font-mono text-xs uppercase tracking-widest">Facebook</span>
