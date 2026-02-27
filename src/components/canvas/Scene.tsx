@@ -23,14 +23,14 @@ function CameraController() {
 
     // Smoothly interpolate camera Y position
     camera.position.y = THREE.MathUtils.damp(camera.position.y, targetY, 4, delta);
-    
-    // Parallax effect on camera X and Z based on pointer
-    const targetX = pointer.x * 0.5;
-    const targetZ = 6 + pointer.y * 0.5;
-    
-    camera.position.x = THREE.MathUtils.damp(camera.position.x, targetX, 3, delta);
-    camera.position.z = THREE.MathUtils.damp(camera.position.z, targetZ, 3, delta);
-    
+
+    // Parallax effect on camera X and Z based on pointer — lighter damping
+    const targetX = pointer.x * 0.3;
+    const targetZ = 6 + pointer.y * 0.3;
+
+    camera.position.x = THREE.MathUtils.damp(camera.position.x, targetX, 2, delta);
+    camera.position.z = THREE.MathUtils.damp(camera.position.z, targetZ, 2, delta);
+
     // Always look at the center of the current vertical view
     camera.lookAt(0, camera.position.y, 0);
   });
@@ -42,32 +42,32 @@ export function Scene() {
     <>
       <ambientLight intensity={0.2} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} />
-      
+
       <CameraController />
-      
-      {/* Ethereal Particles for Awwwards-level depth */}
-      <Sparkles count={400} scale={30} size={1.5} speed={0.2} opacity={0.4} color="#ffffff" />
-      <Sparkles count={100} scale={20} size={3} speed={0.5} opacity={0.2} color="#4a00e0" />
+
+      {/* Reduced particle count for performance — still looks ethereal */}
+      <Sparkles count={200} scale={30} size={1.5} speed={0.2} opacity={0.4} color="#ffffff" />
+      <Sparkles count={50} scale={20} size={3} speed={0.3} opacity={0.15} color="#4a00e0" />
 
       <group>
         {/* Substance 1 (Sostanze) */}
-        <Float floatIntensity={2} speed={2} rotationIntensity={0.5}>
+        <Float floatIntensity={1.5} speed={1.5} rotationIntensity={0.3}>
           <Substance1 position={[0, 0, 0]} />
         </Float>
-        
+
         {/* Substance 2 (Rischi / Drugchecking) */}
-        <Float floatIntensity={2} speed={3} rotationIntensity={1}>
+        <Float floatIntensity={1.5} speed={2} rotationIntensity={0.5}>
           <Substance2 position={[0, -10, 0]} />
         </Float>
-        
+
         {/* Substance 3 (Consulenza) */}
-        <Float floatIntensity={2} speed={1.5} rotationIntensity={0.2}>
+        <Float floatIntensity={1.5} speed={1} rotationIntensity={0.15}>
           <Substance3 position={[0, -20, 0]} />
         </Float>
       </group>
 
-      {/* High-quality environment lighting for reflections (baked once for performance) */}
-      <Environment resolution={256} frames={1}>
+      {/* Environment lighting — already baked (frames=1) */}
+      <Environment resolution={128} frames={1}>
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <Lightformer intensity={1} rotation-x={Math.PI / 2} position={[0, 5, -9]} scale={[10, 10, 1]} />
           <Lightformer intensity={0.5} rotation-y={Math.PI / 2} position={[-5, 1, -1]} scale={[20, 0.1, 1]} />

@@ -1,8 +1,8 @@
 import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import * as THREE from 'three';
 
-export function Substance3(props: JSX.IntrinsicElements['group']) {
+export function Substance3(props: React.JSX.IntrinsicElements['group']) {
   const groupRef = useRef<THREE.Group>(null);
   const coreRef = useRef<THREE.Mesh>(null);
 
@@ -20,9 +20,9 @@ export function Substance3(props: JSX.IntrinsicElements['group']) {
 
   return (
     <group ref={groupRef} {...props}>
-      {/* Wireframe Outer */}
+      {/* Wireframe Outer — reduced segments */}
       <mesh>
-        <torusKnotGeometry args={[1.2, 0.4, 128, 16]} />
+        <torusKnotGeometry args={[1.2, 0.4, 64, 12]} />
         <meshStandardMaterial
           color="#ffffff"
           wireframe
@@ -32,9 +32,9 @@ export function Substance3(props: JSX.IntrinsicElements['group']) {
           opacity={0.8}
         />
       </mesh>
-      {/* Glowing Core */}
+      {/* Glowing Core — reduced segments */}
       <mesh ref={coreRef}>
-        <sphereGeometry args={[0.7, 64, 64]} />
+        <sphereGeometry args={[0.7, 32, 32]} />
         <meshBasicMaterial color="#ffffff" />
       </mesh>
       <pointLight color="#ffffff" intensity={5} distance={10} />

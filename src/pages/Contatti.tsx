@@ -7,7 +7,7 @@ export function Contatti() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.35 }}
       className="w-full min-h-screen pt-32 pb-24 px-6 md:px-12 max-w-6xl mx-auto pointer-events-auto"
     >
       <div className="overflow-hidden mb-12">

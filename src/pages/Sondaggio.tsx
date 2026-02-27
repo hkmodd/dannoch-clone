@@ -6,7 +6,7 @@ export function Sondaggio() {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 1.05 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.35 }}
       className="w-full min-h-screen pt-32 pb-24 px-6 md:px-12 max-w-5xl mx-auto pointer-events-auto flex flex-col items-center text-center"
     >
       <div className="overflow-hidden mb-8 mix-blend-difference">

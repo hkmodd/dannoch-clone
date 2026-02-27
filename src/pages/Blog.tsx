@@ -1,27 +1,28 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { blogList } from '../data/blog';
 
 export function Blog() {
-  const posts = [
-    { id: '565-ketamina-ieri-e-oggi', title: 'Ketamina, ieri e oggi', date: '15 Dicembre 2025', category: 'Sostanze', excerpt: 'Un\'analisi storica e farmacologica sull\'evoluzione dell\'uso ricreativo della ketamina, dai club underground alle nuove tendenze.' },
-    { id: '563-sai-cosa-compri', title: 'Sai cosa compri?', date: '24 Dicembre 2021', category: 'Drug Checking', excerpt: 'I risultati delle ultime analisi di laboratorio rivelano un aumento di adulteranti pericolosi nel mercato nero svizzero.' },
-    { id: '562-covid-19-lockdown-2020-consumo-sostanze', title: 'COVID 19, Lockdown 2020 e il Consumo', date: '21 Marzo 2021', category: 'Ricerca', excerpt: 'Come la pandemia ha modificato le abitudini di consumo, spostando l\'uso dalle discoteche agli ambienti domestici.' },
-    { id: '561-uso-di-sostanze-a-scopo-ricreativo-in-svizzera-2019', title: 'Uso di sostanze a scopo ricreativo in Svizzera', date: '29 Settembre 2020', category: 'Statistiche', excerpt: 'I dati ufficiali del 2019 mostrano un cambiamento nei pattern di consumo tra i giovani adulti.' },
-    { id: '558-qual-e-il-limite', title: 'Qual è il limite?', date: '23 Maggio 2019', category: 'Prevenzione', excerpt: 'Riflessioni sulla linea sottile tra uso ricreativo, abuso e dipendenza. Come riconoscere i segnali d\'allarme.' },
-  ];
+  // Sort by date descending (newest first)
+  const posts = [...blogList].sort((a, b) => {
+    // Extract year from Italian date string
+    const yearA = parseInt(a.date.split(' ').pop() || '0');
+    const yearB = parseInt(b.date.split(' ').pop() || '0');
+    return yearB - yearA;
+  });
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.35 }}
       className="w-full min-h-screen pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto pointer-events-auto"
     >
       <div className="overflow-hidden mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8 mix-blend-difference">
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.85]">
-          News &<br/>Blog
+          News &<br />Blog
         </h1>
         <p className="font-mono text-sm opacity-70 max-w-xs uppercase tracking-widest">
           Approfondimenti, allerte pillole e report dal mondo della riduzione del danno.
@@ -31,7 +32,7 @@ export function Blog() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post, i) => (
           <Link key={post.id} to={`/news-blog/${post.id}`}>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.1 }}
