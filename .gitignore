@@ -6,3 +6,20 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Scraped data (development only)
+scraped_*.json
+site_map.json
+metadata.json
+
+# Python scripts (development only)
+*.py
+__pycache__/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+Desktop.ini
