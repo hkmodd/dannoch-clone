@@ -250,6 +250,14 @@ body {
   opacity: 0.6 !important;
 }
 
+.theme-light .opacity-50 {
+  opacity: 0.55 !important;
+}
+
+.theme-light .opacity-80 {
+  opacity: 0.85 !important;
+}
+
 /* ── Hover states for cards (Blog etc) ── */
 .theme-light .hover\:bg-white:hover {
   background-color: #1a1a1a !important;
@@ -262,6 +270,30 @@ body {
 
 .theme-light .text-black {
   color: #F0EBE3 !important;
+}
+
+.theme-light .hover\:bg-gray-200:hover {
+  background-color: #333 !important;
+}
+
+.theme-light .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ── Form inputs ── */
+.theme-light input,
+.theme-light textarea {
+  color: #1a1a1a !important;
+  border-color: rgba(26, 26, 26, 0.15) !important;
+}
+
+.theme-light input::placeholder,
+.theme-light textarea::placeholder {
+  color: rgba(26, 26, 26, 0.35) !important;
+}
+
+.theme-light .focus\:border-white\/50:focus {
+  border-color: rgba(26, 26, 26, 0.4) !important;
 }
 
 .theme-light .hover\:scale-\[1\.02\]:hover {

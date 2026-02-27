@@ -1,7 +1,8 @@
-const CACHE_NAME = 'danno-ch-v1';
-const STATIC_ASSETS = [
-    '/',
-    '/index.html',
+var BASE_PATH = '/dannoch-clone';
+var CACHE_NAME = 'danno-ch-v2';
+var STATIC_ASSETS = [
+    BASE_PATH + '/',
+    BASE_PATH + '/index.html',
 ];
 
 // Install — cache core shell
@@ -26,7 +27,7 @@ self.addEventListener('activate', function (event) {
 self.addEventListener('fetch', function (event) {
     var url = new URL(event.request.url);
 
-    // Skip external requests (drug checking iframe, etc.)
+    // Skip external requests
     if (url.origin !== location.origin) return;
 
     // Skip non-GET requests
@@ -41,7 +42,7 @@ self.addEventListener('fetch', function (event) {
                     caches.open(CACHE_NAME).then(function (cache) { cache.put(event.request, clone); });
                     return response;
                 })
-                .catch(function () { return caches.match('/index.html').then(function (r) { return r || new Response('Offline'); }); })
+                .catch(function () { return caches.match(BASE_PATH + '/index.html').then(function (r) { return r || new Response('Offline'); }); })
         );
         return;
     }
