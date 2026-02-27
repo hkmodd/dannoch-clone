@@ -25,8 +25,6 @@ export function Navigation() {
     { name: 'Home', path: '/' },
     { name: 'Chi siamo', path: '/chi-siamo' },
     { name: 'Blog', path: '/news-blog' },
-    { name: 'Sondaggio', path: '/sondaggio-online-sui-consumi' },
-    { name: 'Collabora', path: '/collabora' },
     { name: 'Flyers', path: '/flyers' },
     { name: 'Partner', path: '/partner' },
     { name: 'Links', path: '/links' },

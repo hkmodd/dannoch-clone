@@ -42,6 +42,35 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+/* Prevent horizontal scroll globally */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Mobile scroll performance */
+[data-scroll-container] {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  will-change: scroll-position;
+}
+
+/* Force tables to not cause horizontal overflow on mobile */
+@media (max-width: 767px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+    font-size: 0.8rem;
+  }
+
+  td,
+  th {
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
 /* ═══ LIGHT THEME OVERRIDES ═══ */
 .theme-light .mix-blend-difference {
   mix-blend-mode: normal !important;

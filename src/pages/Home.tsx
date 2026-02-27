@@ -124,8 +124,6 @@ export function Home() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mt-2 md:mt-8">
         {[
           { title: 'Chi siamo', path: '/chi-siamo' },
-          { title: 'Sondaggio', path: '/sondaggio-online-sui-consumi' },
-          { title: 'Collabora', path: '/collabora' },
           { title: 'Flyers', path: '/flyers' },
           { title: 'Partner', path: '/partner' },
           { title: 'Links', path: '/links' },

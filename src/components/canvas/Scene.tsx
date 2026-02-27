@@ -18,7 +18,7 @@ function CameraController() {
     else if (location.pathname === '/consulenza' || location.pathname === '/contatti') targetY = -20;
     else if (location.pathname === '/news-blog' || location.pathname.startsWith('/news-blog/')) targetY = -15;
     else if (location.pathname === '/sondaggio-online-sui-consumi') targetY = -25;
-    else if (['/chi-siamo', '/collabora', '/flyers', '/partner', '/links'].includes(location.pathname)) targetY = -5;
+    else if (['/chi-siamo', '/flyers', '/partner', '/links'].includes(location.pathname)) targetY = -5;
     else targetY = 0; // Home
 
     // Smoothly interpolate camera Y position
